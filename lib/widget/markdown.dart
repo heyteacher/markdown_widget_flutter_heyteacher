@@ -30,7 +30,7 @@ class MarkdownWidget extends StatefulWidget {
 
   ///config for [MarkdownGenerator]
   final MarkdownGenerator? markdownGenerator;
-  
+
   final AutoScrollController? _autoScrollController;
 
   const MarkdownWidget({
@@ -43,8 +43,8 @@ class MarkdownWidget extends StatefulWidget {
     this.padding,
     this.config,
     this.markdownGenerator,
-    AutoScrollController? autoScrollController
-  }) : _autoScrollController = autoScrollController, super(key: key);
+    this._autoScrollController,
+  }) : super(key: key);
 
   @override
   MarkdownWidgetState createState() => MarkdownWidgetState();
@@ -68,14 +68,14 @@ class MarkdownWidgetState extends State<MarkdownWidget> {
 
   ///if the [ScrollDirection] of [ListView] is [ScrollDirection.forward], [isForward] will be true
   bool isForward = true;
-  
+
   bool _isDisposed = false;
 
   @override
   void initState() {
     super.initState();
     _tocController = widget.tocController;
-    controller = widget._autoScrollController ??  AutoScrollController();
+    controller = widget._autoScrollController ?? AutoScrollController();
     _tocController?.jumpToWidgetIndexCallback = (index) {
       if (_isDisposed) return;
       controller.scrollToIndex(index, preferPosition: AutoScrollPosition.begin);
@@ -86,10 +86,9 @@ class MarkdownWidgetState extends State<MarkdownWidget> {
   ///when we've got the data, we need update data without setState() to avoid the flicker of the view
   void updateState() {
     indexTreeSet.clear();
-    markdownGenerator = widget.markdownGenerator ??
-        MarkdownGenerator(
-          inlineSyntaxList: [AutolinkNoLeadingSpaceSyntax()],
-        );
+    markdownGenerator =
+        widget.markdownGenerator ??
+        MarkdownGenerator(inlineSyntaxList: [AutolinkNoLeadingSpaceSyntax()]);
     final result = markdownGenerator.buildWidgets(
       widget.data,
       onTocList: (tocList) {
@@ -130,8 +129,11 @@ class MarkdownWidgetState extends State<MarkdownWidget> {
         shrinkWrap: widget.shrinkWrap,
         physics: widget.physics,
         controller: controller,
-        itemBuilder: (ctx, index) => wrapByAutoScroll(index,
-            wrapByVisibilityDetector(index, _widgets[index]), controller),
+        itemBuilder: (ctx, index) => wrapByAutoScroll(
+          index,
+          wrapByVisibilityDetector(index, _widgets[index]),
+          controller,
+        ),
         itemCount: _widgets.length,
         padding: widget.padding,
       ),
@@ -174,7 +176,10 @@ class MarkdownWidgetState extends State<MarkdownWidget> {
 
 ///wrap widget by [AutoScrollTag] that can use [AutoScrollController] to scrollToIndex
 Widget wrapByAutoScroll(
-    int index, Widget child, AutoScrollController controller) {
+  int index,
+  Widget child,
+  AutoScrollController controller,
+) {
   return AutoScrollTag(
     key: Key(index.toString()),
     controller: controller,
