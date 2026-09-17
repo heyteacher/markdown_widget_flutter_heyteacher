@@ -1,11 +1,11 @@
 name: markdown_widget_flutter_heyteacher
 description: Unofficial fork of markdown_widget, a new markdown package. It supports TOC function, code highlighting, and it supports all platforms
-version: 2.4.1+1
-homepage: https://github.com/heyteacher/markdown_widget
-repository: https://github.com/heyteacher/markdown_widget
+version: 2.4.2+1
+homepage: https://github.com/heyteacher/markdown_widget_flutter_heyteacher
+repository: https://github.com/heyteacher/markdown_widget_flutter_heyteacher
 license: MIT
-issue_tracker: https://github.com/heyteacher/markdown_widget/issues
-documentation: https://github.com/heyteacher/markdown_widget
+issue_tracker: https://github.com/heyteacher/markdown_widget_flutter_heyteacher/issues
+documentation: https://github.com/heyteacher/markdown_widget_flutter_heyteacher
 
 topics:
   - markdown

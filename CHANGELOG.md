@@ -1,5 +1,10 @@
 # Changelog
 
+## [2.4.2+]
+
+- 2.4.2+1
+  - Update github urls in `pubspec.yaml` pointing to `heyteacher/umarkdown_widget_flutter_heyteacher` repository
+
 ## [2.4.1+]
 
 - 2.4.1+1
